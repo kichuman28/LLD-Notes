@@ -37,3 +37,9 @@ Class ReportService{
 
 Now each class has a single responsibility. Changes in one will not affect the other. This is basicaally
 Single Responsibility Principle or SRP.
+
+
+Advantages of SRP:
+Better Maintainability: Changes to reporting requirements will only affect ReportService without impacting BookService.
+Easier Testing: Each class has a single responsibility, so it's easier to test the individual functionalities.
+Reusability: If you need a similar reporting feature in another system, you can reuse ReportService without depending on BookService.

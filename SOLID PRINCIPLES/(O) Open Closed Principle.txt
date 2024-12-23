@@ -1,0 +1,95 @@
+Open/Closed Principle (OCP) states that 
+"A class should be open for extension but closed for modification".
+
+Basically if we want to add new functionality, it should be in such a way that we don't modify the exisiting
+code, because it can lead to bugs or failures. So we should find some other way to implement new changes.
+
+For example if we are making a payment processing system,
+
+class PaymentProcessor{
+    public void processPayment(String paymentMethod){
+        if(paymentMethod == "Credit"){
+            System.out.println("Processing credit card payment");
+        }else if(paymentMethod == "PayPal"){
+            System.out.println("Processing PayPal payment");
+        }
+    }
+}
+
+
+
+So here if I want to add an addtional payment method then I have to modify this code.
+Let's say I want to add a Google Pay payment option.
+
+
+class PaymentProcessor{
+    public void processPayment(String paymentMethod){
+        if(paymentMethod == "Credit"){
+            System.out.println("Processing credit card payment");
+        }else if(paymentMethod == "PayPal"){
+            System.out.println("Processing PayPal payment");
+        }else if(paymentMethod == "Gpay"){
+            System.out.println("Processing Gpay payment");
+        }
+    }
+}
+
+Here I am modifying the exisiting code. 
+
+
+Using the OCP princple, we use polymorphism to implement it. We use interfaces and define a payment method,
+which is implemented in the child classes.
+
+
+interface PaymentMethod{
+    void pay();
+}
+
+class CreditCardPayment implements PaymentMethod{
+    void pay(){
+        System.out.println("Processing credit card payment.")
+    }
+}
+
+
+class PayPalPayment implements PaymentMethod{
+    void pay(){
+        System.out.println("Processing paypal payment.")
+    }
+}
+
+
+class GpayPayment implements PaymentMethod{
+    void pay(){
+        System.out.println("Processing Gpay payment.")
+    }
+}
+
+class PaymentProcessor{
+    void processPayment(PaymentMethod paymentMethod){
+        paymentMethod.pay();
+    }
+}
+
+public static void main(String args[]){
+    //I need an object of PaymentProcessor class
+    PaymentProcessor obj1 = new PaymentProcessor();
+    
+    CreditCardPayment creditCard = new CreditCardPayment();
+    PayPalPayment paypal = new PayPalPayment();
+    GpayPayment gpay = new GpayPayment();
+
+    obj1.processPayment(creditCard);
+    obj1.processPayment(paypal);
+    obj1.processPayment(gpay);
+}
+
+
+=> Now I can add as many payment methods I want without changing the exisitin code for any of the other 
+payments.
+
+
+Benefits of OCP:
+Extensibility: You can add new functionality without changing existing code.
+Reduced Risk: Existing, tested code is not modified, so there’s less chance of introducing bugs.
+Scalability: As the system grows, adding new features becomes easier.
