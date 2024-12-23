@@ -75,9 +75,9 @@ public static void main(String args[]){
     //I need an object of PaymentProcessor class
     PaymentProcessor obj1 = new PaymentProcessor();
     
-    CreditCardPayment creditCard = new CreditCardPayment();
-    PayPalPayment paypal = new PayPalPayment();
-    GpayPayment gpay = new GpayPayment();
+    PaymentMethod creditCard = new CreditCardPayment();
+    PaymentMethod paypal = new PayPalPayment();
+    PaymentMethod gpay = new GpayPayment();
 
     obj1.processPayment(creditCard);
     obj1.processPayment(paypal);
