@@ -1,0 +1,110 @@
+Liskov Substitution Principle (LSP) states that 
+=> If a parent class A works fine then it's child class B should also work fine while implementing it. 
+
+Basic example if of a car and a bike. Let's say they are part of the class Vehicle
+
+class Vehicle{
+    public void startEngine(){
+        System.out.println("Engine has started");
+    }
+
+    public void move(){
+        System.out.println("Vehicle is moving.")
+    }
+}
+
+class Car extends Vehicle{
+    public void startEngine(){
+        System.out.println("Car engine has started");
+    }
+}
+
+class Bike extends Vehicle{
+    public void startEngine(){
+        throw new UnsupportedOperationException("Bicycles don't have engines");
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle car = new Car();
+        Vehicle bicycle = new Bicycle();
+
+        car.startEngine();   // Works fine
+        bicycle.startEngine(); // Throws exception
+    }
+}
+
+
+This fails the Liskov Substitution Principle. The "bike" child class cannot substitute the Vehicle Child Class.
+So we must design it in such a way that it is possible.
+
+------------------------------------------Read for understanding-----------------------------------------------
+Adhering to LSP
+To fix this, we should rethink the design and separate the functionality of "engine-driven vehicles" and "non-engine-driven vehicles."
+
+Create an Interface for Movable Objects
+java
+Copy code
+interface Movable {
+    void move();
+}
+Create a Separate Interface for Engine-Driven Vehicles
+java
+Copy code
+interface EngineDriven extends Movable {
+    void startEngine();
+}
+Implement the Classes
+Car (Engine-driven vehicle):
+java
+Copy code
+class Car implements EngineDriven {
+    @Override
+    public void startEngine() {
+        System.out.println("Car engine started");
+    }
+
+    @Override
+    public void move() {
+        System.out.println("Car is moving");
+    }
+}
+Bicycle (Non-engine-driven vehicle):
+java
+Copy code
+class Bicycle implements Movable {
+    @Override
+    public void move() {
+        System.out.println("Bicycle is moving");
+    }
+}
+Usage Example
+Now, both Car and Bicycle can be used polymorphically without breaking expectations:
+
+java
+Copy code
+public class Main {
+    public static void main(String[] args) {
+        Movable car = new Car();
+        Movable bicycle = new Bicycle();
+
+        car.move();           // "Car is moving"
+        bicycle.move();       // "Bicycle is moving"
+
+        EngineDriven carWithEngine = new Car();
+        carWithEngine.startEngine();  // "Car engine started"
+    }
+}
+------------------------------------------Read for understanding-----------------------------------------------
+
+
+Benefits of LSP:
+Predictable Behavior: Subclasses behave consistently with their parent classes.
+Improved Code Reliability: Avoids unexpected bugs caused by subclasses modifying behavior.
+Better Abstraction: Helps define clear and logical relationships between classes.
+By adhering to LSP, you ensure that your system is designed with logical relationships 
+that are easy to extend and maintain.
+
+
+TL:DR => If Class B is a subtype of Class A, then we should be able to replace object of A with B without
+breaking the behaviour of the program.
