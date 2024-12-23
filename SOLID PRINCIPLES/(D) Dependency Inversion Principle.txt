@@ -1,0 +1,82 @@
+Dependency Inversion Principle 
+=> "Class should depend on Interfaces rather than concrete classes"
+
+Let's take the use case over here.Suppose we are making a notification sending service. For now we are 
+only using email and made the code in the following way
+
+class EmailService{
+    public void sendEmail(String message){
+        System.out.println("Sending email " + message);
+    }
+}
+
+class Notification{
+    private EmailService emailService;
+
+    public Notification(){
+        this.emailService = new EmailService();
+    }
+
+    public void notifyUsers(String message){
+        emailService.sendEmail(message);
+    }
+}
+
+public static void main(String args[]){
+    Notification obj1 = new Notification();
+    obj1.notifyUsers("Your order has been shipped!");
+}
+
+=> From this above code the notification system is strictly dependent on the EmailService concrete class.
+If I want to add any other service I'll have to change a lot of things. So to prevent that we use interface
+as the dependency, as below:
+
+
+interface MessageService{
+    void sendMessage();
+}
+
+class EmailService implements MessageService{
+    void sendMessage(String message){
+        System.out.println("The message is " + message);
+    }
+}
+
+class SMSService implements MessageService{
+    void sendMessage(String message){
+        System.out.println("The message is " + message);
+    }
+}
+
+class Notification{
+    private MessageService messageService;
+
+    public Notification(MessageService messageService){
+        this.messageService = messageService;
+    }
+
+    public void notifyUsers(String message){
+        messageService.sendMessage(message);
+    }
+}
+
+public static void main(String args[]){
+
+    MessageService email = new EmailService();
+    MessageService sms = new SMSService();
+
+    Notification emailNotification = new Notification(emailService);
+    Notification smsNotification = new Notification(sms);
+
+    emailNotification.notifyUsers("Your order will be shipped soon!");
+    smsNotification.notifyUsers("Your OTP is 1234");
+}
+
+=> So here if you see that now the notification service relies on the interface "MessageService". It's
+now more
+=> Scalable 
+=> Easier to maintain 
+=> Clean Architecture 
+
+I can add many message services as I want without changing the exisiting codebase, only have to add more
+classes. 
