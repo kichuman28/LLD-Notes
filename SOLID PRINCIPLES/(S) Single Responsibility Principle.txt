@@ -1,0 +1,39 @@
+Single Responsibility Principle
+=> This principle states that a class should have only one reason to change, meaning it should have only 
+one responsibility.
+
+Consider the following example regarding a library manangement system.
+
+Class BookManager{
+    public void addBook(){
+        //Logic for adding book.
+    }
+
+    public void generateReport(){
+        //Logic for generating report
+    }
+}
+
+Here if you notice the methods for adding book and generating report is in the same class. If I wanted to 
+modify say the generateReport() method to generate reports in PDF's rather than normal text then sometimes
+it can cause changes in the addBook() method as well since it is in the same class. So to prevent this, we
+use the SRP principle. 
+
+
+=> Code with SRP
+
+Class BookService(){
+    public void addBook(){
+        //Logic for adding book
+    }
+}
+
+Class ReportService{
+    public void generateReport(){
+        //Logic for generating report.
+    }
+}
+
+
+Now each class has a single responsibility. Changes in one will not affect the other. This is basicaally
+Single Responsibility Principle or SRP.
