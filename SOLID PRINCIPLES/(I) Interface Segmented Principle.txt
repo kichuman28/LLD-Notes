@@ -1,0 +1,60 @@
+Interface Segmented Principle states that
+=> Interfaces should be made in such a way that the client should not implement unnecessary functions they
+do not need.
+
+For example we are making an interface called RestuarantEmployee and it has 3 methods to be implemented
+=> washDishes()
+=> serveCustomers()
+=> cookFood()
+
+Now I am creating a class called waiter that implements RestuarantEmployee.
+
+interface RestuarantEmployee{
+    void washDishes();
+    void serveCustomers();
+    void cookFood();
+}
+
+class waiter implements RestuarantEmployee{
+    void washDishes(){
+        //waiter does not do this job
+    }
+
+    void serveCustomers(){
+        System.out.println("The waiter is serving the customers");
+    }
+
+    void cookFood(){
+        //waiter does not do this job
+    }
+}
+
+
+=> Here you can see that since I defined the 3 methods in RestuarantEmployee I have to implement all of them
+in the waiter class, even if the waiter does not do all of the functions. This is where the interface segmented
+principle comes in.
+
+According to it, we make a seperate interface for each job. For example here I create an interface for each
+job then the conflict does not occur.
+
+
+interface WaiterInterface(){
+    void serveCustomers();
+    void takeOrder();
+}
+
+
+class waiter implements WaiterInterface(){
+    void serveCustomers(){
+        System.out.println("The waiter is serving the customers");
+    }
+
+    void takeOrder(){
+        System.out.println("The waiter is taking the order").
+    }
+}
+
+
+=> Here I obeyed the Interface Segmented Principle and made seperate interfaces for each functionality.
+
+
