@@ -11,6 +11,5 @@ public class Main{
 
         PaymentApp googlePayApp = new PaymentApp(new GooglePay());
         googlePayApp.pay();
-
     }
 }
