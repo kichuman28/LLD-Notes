@@ -36,13 +36,13 @@ public class Book {
     }
 
     //Mark the book as borrowed
-    public void markAsBorrowed(String bookId, Member member){
+    public void markAsBorrowed(int bookId, Member member){
         this.isAvailable = false;
         this.borrowedBy = member;
     }
 
     //Mark the book as returned
-    public void markAsReturned(String bookId, Member member){
+    public void markAsReturned(int bookId, Member member){
         this.isAvailable = true;
         this.borrowedBy = null;
     }
