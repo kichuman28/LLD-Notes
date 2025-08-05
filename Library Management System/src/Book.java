@@ -1,11 +1,11 @@
 public class Book {
-    private String bookId;
+    private int bookId;
     private String title;
     private String author;
     private Boolean isAvailable;
     private Member borrowedBy;
 
-    public Book(String bookId, String title, String author){
+    public Book(int bookId, String title, String author){
         this.bookId = bookId;
         this.author = author;
         this.title = title;
@@ -15,7 +15,7 @@ public class Book {
 
 
     //Define the getters
-    public String getId(){
+    public int getId(){
         return bookId;
     }
 
